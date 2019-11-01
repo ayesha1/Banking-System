@@ -1,5 +1,4 @@
 import java.awt.Font;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +21,6 @@ public class MainMenu extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 
 	@Override
@@ -34,6 +32,16 @@ public class MainMenu extends Application {
 
 		button = new Button();
 		button.setText("New Customer");
+		button.setOnAction(e -> {
+		    NewCustomer newCust = new NewCustomer();
+		    try {
+				newCust.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
 		
 		button1 = new Button();
 		button1.setText("Customer Login");
