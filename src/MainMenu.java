@@ -45,7 +45,16 @@ public class MainMenu extends Application {
 		
 		button1 = new Button();
 		button1.setText("Customer Login");
-		
+		button1.setOnAction(e -> {
+		    CustomerLogin login = new CustomerLogin();
+		    try {
+		    	login.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
 		button2 = new Button();
 		button2.setText("Exit");
 
