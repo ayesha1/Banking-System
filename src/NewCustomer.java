@@ -1,9 +1,12 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -88,7 +91,7 @@ public class NewCustomer extends Application {
 	  			}
 	    	  }
 	    	  nameToEnter = String.valueOf(textField1.getText());
-	    	  	System.out.print(nameToEnter);
+	    	  	System.out.println(nameToEnter);
 	        });
 
 
@@ -116,6 +119,7 @@ public class NewCustomer extends Application {
 
 
 	private void insertIntoDB(String name, String gender, Integer age, Integer pin) {
+        Alert a = new Alert(AlertType.NONE); 
 		try {
 			// 1. Get a connection to the Database
 			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
@@ -126,10 +130,27 @@ public class NewCustomer extends Application {
 			String query1 = "INSERT INTO P1.CUSTOMER (name, gender, age, pin) "
 					+ "VALUES ('" + name + "', '" + gender + "', '" + age + "', '" + pin + "')"; // The query to run
 			stmt.execute(query1);
+			
+			String query2 = "SELECT ID FROM P1.CUSTOMER AS C WHERE "
+					+ "C.name = '" + name + "' AND C.pin = '" + pin + "'"; // The query to run
+			ResultSet rs = stmt.executeQuery(query2);
+			
+			while(rs.next()) {
+				int id = rs.getInt(1);
+				String s ="Your id is " + id;
+				System.out.println("Your id is " + id);
+                a.setAlertType(AlertType.CONFIRMATION); 
+                
+                // set content text 
+                a.setContentText(s); 
+  
+                // show the dialog 
+                a.show(); 
+
+			}
 	
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
-			con.close();
 	
 		} catch (Exception exc) {
 			exc.printStackTrace();
