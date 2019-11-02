@@ -123,8 +123,8 @@ public class NewCustomer extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 	
-			String query1 = "INSERT INTO P1.CUSTOMER (name, gender, age, pin, type, status) "
-					+ "VALUES ('" + name + "', '" + gender + "', '" + age + "', '" + pin + "', 'C', 'A')"; // The query to run
+			String query1 = "INSERT INTO P1.CUSTOMER (name, gender, age, pin) "
+					+ "VALUES ('" + name + "', '" + gender + "', '" + age + "', '" + pin + "')"; // The query to run
 			stmt.execute(query1);
 	
 			con.close();

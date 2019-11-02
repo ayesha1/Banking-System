@@ -46,14 +46,9 @@ public class StartMenu extends Application {
 					+ "   gender          CHAR," 
 					+ "   age           INTEGER,"
 					+ "   pin           INTEGER," 
-					+ "   type     CHAR," 
-					+ "   status char," + "PRIMARY KEY (ID))";
+					+ "PRIMARY KEY (ID))";
 
 			stmt.execute(sqlCreate);
-
-			String query1 = "INSERT INTO P1.CUSTOMER (name, gender, age, pin, type, status) "
-					+ "VALUES ('Sammy', 'M', '22', '4956', 'C', 'A')"; // The query to run
-			stmt.execute(query1);
 
 			con.close();
 			rs.close();// Close the result set after we are done with the result set
