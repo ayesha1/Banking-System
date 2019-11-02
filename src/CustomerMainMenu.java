@@ -69,6 +69,17 @@ public class CustomerMainMenu extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
+		// DEPOSIT -----------------------
+		deposit.setOnAction(e -> {
+					Deposit acc = new Deposit();
+					try {
+						acc.start(primaryStage);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				});
 
 		
 
