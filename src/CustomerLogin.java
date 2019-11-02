@@ -19,6 +19,8 @@ public class CustomerLogin extends Application {
 	public void start(Stage primaryStage) throws Exception {
 	      Text customerId = new Text("Customer ID");       
 	      Text pin = new Text("Pin"); 
+	      Text alert = new Text("");
+
 
 	      TextField textField1 = new TextField();       
 	      TextField textField2 = new TextField();  
@@ -40,6 +42,41 @@ public class CustomerLogin extends Application {
 	      gridPane.add(pin, 0, 1);       
 	      gridPane.add(textField2, 1, 1); 
 	      gridPane.add(button, 1, 4);
+	      gridPane.add(alert, 1, 5);
+
+	      
+	      button.setOnAction(e -> {
+	    	  if (textField1.getText().trim().equals("") ||
+	    			  textField2.getText().trim().equals("")) {
+	    		  alert.setText("SOME AREAS ARE BLANK");
+	    		  alert.setFill(javafx.scene.paint.Color.RED);
+
+	    		  System.out.print("blanm");
+	    		  	    	  }
+	    	  else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") ||
+	    			  !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
+	    		  alert.setText("PIN OR AGE IS NOT A NUMBER");
+	    		  alert.setFill(javafx.scene.paint.Color.RED);
+	    		  System.out.print("blanm");
+	    	  }
+	    	  else if (checkIfInDB( Integer.parseInt(textField1.getText()),
+	    				  Integer.parseInt(textField2.getText()) ) == false) {
+	    		  alert.setText("INCORRECT CUSTOMER ID OR PIN");
+	    		  alert.setFill(javafx.scene.paint.Color.RED);
+
+	    	  }
+	    	  else {
+	    		  //TODO: INSERT INTO DATABASE
+	    		  
+	    		  CustomerMainMenu newCust = new CustomerMainMenu();
+	  		    try {
+	  				newCust.start(primaryStage);
+	  			} catch (Exception e1) {
+	  				// TODO Auto-generated catch block
+	  				e1.printStackTrace();
+	  			}
+	    	  }
+	        });
 
 	      gridPane.setStyle("-fx-padding: 10;" + 
 	                "-fx-border-style: solid inside;" + 
@@ -60,6 +97,12 @@ public class CustomerLogin extends Application {
 	      //Displaying the contents of the stage 
 	      primaryStage.show(); 
 
+	}
+
+	private boolean checkIfInDB(int parseInt, int parseInt2) {
+		return false;
+		// TODO Auto-generated method stub
+		
 	}
 
 
