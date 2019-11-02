@@ -98,13 +98,8 @@ public class CloseAccount extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 
-			String query2 = "UPDATE P1.ACCOUNT SET status = 'I', balance = 0 " + "where id = '" + parseInt + "'";  // Updated
-			ResultSet rs = stmt.executeQuery(query2);
-
-			while (rs.next()) {
-				String name = rs.getString(1);
-				System.out.println("Your name is " + name);
-			}
+			String query1 = "UPDATE P1.ACCOUNT SET status = 'I', balance = 0 " + "where id = '" + parseInt + "'";  // Updated
+			stmt.execute(query1);
 
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
