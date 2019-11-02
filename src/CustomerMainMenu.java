@@ -1,28 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField; 
-import java.util.*;
-import java.io.*;
-import java.sql.*;
-//1.    Open Account
-//2.    Close Account
-//3.    Deposit
-//4.    Withdraw
-//5.    Transfer
-//6.    Account Summary
-//7.    Exit
 
 public class CustomerMainMenu extends Application {
 	Button openAccount;
