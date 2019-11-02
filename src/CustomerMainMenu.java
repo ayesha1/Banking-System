@@ -47,6 +47,16 @@ public class CustomerMainMenu extends Application {
 	      gridPane.add(transfer, 1, 4);
 	      gridPane.add(accountSummary, 1, 5);
 	      gridPane.add(exit, 1, 6);
+	      
+	      openAccount.setOnAction(e -> {
+			    OpenAccount acc = new OpenAccount();
+			    try {
+			    	acc.start(primaryStage);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
 
 	      gridPane.setStyle("-fx-padding: 10;" + 
 	                "-fx-border-style: solid inside;" + 
