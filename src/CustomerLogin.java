@@ -16,9 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 
 public class CustomerLogin extends Application {
 	Button submit;
+	public static int id;
 	
 	public static void main(String[] args) {
 		launch(args);
+		System.out.print(id);
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class CustomerLogin extends Application {
 			String query2 = "SELECT NAME FROM P1.CUSTOMER AS C WHERE "
 					+ "C.id = '" + parseInt + "' AND C.pin = '" + parseInt2 + "'"; // The query to run
 			ResultSet rs = stmt.executeQuery(query2);
-			
+			CustomerLogin.id = parseInt;
 			while(rs.next()) {
 				String name = rs.getString(1);
 				String s ="Your name is " + name;

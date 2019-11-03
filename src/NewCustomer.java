@@ -21,7 +21,7 @@ public class NewCustomer extends Application {
 	String gender;
 	Integer age;
 	Integer pin;
-	
+	public static int id = 0;
 	public static void main(String[] args) {
 		launch(args);
 
@@ -139,6 +139,7 @@ public class NewCustomer extends Application {
 				int id = rs.getInt(1);
 				String s ="Your id is " + id;
 				System.out.println("Your id is " + id);
+				NewCustomer.id = id;
                 a.setAlertType(AlertType.CONFIRMATION); 
                 
                 // set content text 
