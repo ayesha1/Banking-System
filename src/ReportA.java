@@ -5,15 +5,12 @@ import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 
 public class ReportA extends Application {
 

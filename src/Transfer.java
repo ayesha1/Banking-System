@@ -5,8 +5,6 @@ import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -58,49 +56,51 @@ public class Transfer extends Application {
 		gridPane.add(alert, 1, 5);
 
 		button.setOnAction(e -> {
-			
+
 			// First make sure none of the textfields are blank
 			if (textField1.getText().trim().equals("") || textField2.getText().trim().equals("")
 					|| textField3.getText().trim().equals("")) {
 				alert.setText("TEXTFIELD IS BLANK");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			}
-			
+
 			// Make sure they're all numbers
-			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") ||
-					!textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") ||
-					!textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
+			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("ID OR DEPOSIT OR AMOUNT IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			} 
-			
+			}
+
 			// Make sure each bank is in the database
-			else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false 
+			else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false
 					|| checkIfInDB(Integer.parseInt(textField2.getText())) == false) {
 				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
 			}
-			
-			// Check if the account # has the same ID and if it doesn't display error message
-			else if (sameIDfromAccountNum(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText())) == false) {
+
+			// Check if the account # has the same ID and if it doesn't display error
+			// message
+			else if (sameIDfromAccountNum(Integer.parseInt(textField1.getText()),
+					Integer.parseInt(textField2.getText())) == false) {
 				alert.setText("NOT FROM THE SAME BANK ACCOUNT");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
 			}
-			
+
 			else if (Integer.parseInt(textField1.getText()) == Integer.parseInt(textField2.getText())) {
 				alert.setText("YOU CANNOT TRANSFER TO YOUR OWN ACCOUNT. ");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
 			}
-			
-			else if (transferToAccount(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()), Integer.parseInt(textField3.getText())) == false) {
+
+			else if (transferToAccount(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()),
+					Integer.parseInt(textField3.getText())) == false) {
 				alert.setText("BALANCE IS TOO LOW");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
-			}
-			else {
+			} else {
 				CustomerMainMenu newCust = new CustomerMainMenu();
 				try {
 					newCust.start(primaryStage);
@@ -127,11 +127,10 @@ public class Transfer extends Application {
 		primaryStage.show();
 
 	}
-	
+
 	private boolean transferToAccount(int sourceAccNum, int destinationAccNum, int amount) {
 		try {
 			int balanceOfsource = 0;
-			int destId = 0;
 			// 1. Get a connection to the Database
 			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
 
@@ -140,36 +139,37 @@ public class Transfer extends Application {
 			// else return false
 			Statement stmt = con.createStatement();
 			String query1 = "SELECT balance from P1.ACCOUNT where number = '" + sourceAccNum + "'";
-			
+
 			ResultSet rs = stmt.executeQuery(query1);
-			while(rs.next()) {
+			while (rs.next()) {
 				balanceOfsource = rs.getInt(1);
 				break;
 			}
-			
+
 			if (balanceOfsource < amount) {
 				return false;
 			}
-			
+
 			// 2. Subtract the amount from sourceAccNum
-			int newBalance = balanceOfsource -  amount;
-			String query2 = "UPDATE P1.ACCOUNT set balance = '" + newBalance + "' where number = '" + sourceAccNum + "'" ;
+			int newBalance = balanceOfsource - amount;
+			String query2 = "UPDATE P1.ACCOUNT set balance = '" + newBalance + "' where number = '" + sourceAccNum
+					+ "'";
 			stmt.execute(query2);
-			
-			// 3. Add the amount to destination AccNum and return true 
+
+			// 3. Add the amount to destination AccNum and return true
 			int originalBalanceOfDestinationAccount = 0;
-			String query3 = "SELECT balance from P1.ACCOUNT where number = '" + destinationAccNum + "'";  // Updated
+			String query3 = "SELECT balance from P1.ACCOUNT where number = '" + destinationAccNum + "'"; // Updated
 			ResultSet rs2 = stmt.executeQuery(query3);
 
-			
-			while(rs2.next()) {
-				originalBalanceOfDestinationAccount= rs2.getInt(1);
+			while (rs2.next()) {
+				originalBalanceOfDestinationAccount = rs2.getInt(1);
 				break;
 			}
 			int newSum = originalBalanceOfDestinationAccount + amount;
-			String query4 = "UPDATE P1.ACCOUNT set balance = '" + newSum + "' where number = '" + destinationAccNum + "'";
+			String query4 = "UPDATE P1.ACCOUNT set balance = '" + newSum + "' where number = '" + destinationAccNum
+					+ "'";
 			stmt.execute(query4);
-			
+
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
 			return true;
@@ -189,26 +189,25 @@ public class Transfer extends Application {
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
-			String query1 = "SELECT id from P1.ACCOUNT where number = '" + sourceAcc + "'";  // Updated
+			String query1 = "SELECT id from P1.ACCOUNT where number = '" + sourceAcc + "'"; // Updated
 			ResultSet rs = stmt.executeQuery(query1);
-			
-			while(rs.next()) {
-				sourceId= rs.getInt(1);
+
+			while (rs.next()) {
+				sourceId = rs.getInt(1);
 				break;
 			}
-			
-			String query2 = "SELECT id from P1.ACCOUNT where number = '" + destAcc + "'";  // Updated
+
+			String query2 = "SELECT id from P1.ACCOUNT where number = '" + destAcc + "'"; // Updated
 			ResultSet rs2 = stmt.executeQuery(query2);
 
-			
-			while(rs2.next()) {
-				destId= rs2.getInt(1);
+			while (rs2.next()) {
+				destId = rs2.getInt(1);
 				break;
 			}
 			if (sourceId == destId) {
 				return true;
 			}
-			
+
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
 		} catch (Exception exc) {
@@ -216,7 +215,6 @@ public class Transfer extends Application {
 		}
 		return false;
 	}
-
 
 	private boolean checkIfInDB(int parseInt) {
 
@@ -227,8 +225,10 @@ public class Transfer extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 
-			String query2 = "SELECT id FROM P1.ACCOUNT WHERE " + "number = '" + parseInt + "' AND status = 'A'"; // The query to
-																										// run
+			String query2 = "SELECT id FROM P1.ACCOUNT WHERE " + "number = '" + parseInt + "' AND status = 'A'"; // The
+																													// query
+																													// to
+			// run
 			ResultSet rs = stmt.executeQuery(query2);
 
 			while (rs.next()) {

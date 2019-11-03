@@ -5,15 +5,12 @@ import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 
 public class AccountSummary extends Application {
 
@@ -43,7 +40,7 @@ public class AccountSummary extends Application {
 		int i = 1;
 		// Display Account Results
 		// Add i++ at the end.
-		//gridPane.add(something, 1, i);
+		// gridPane.add(something, 1, i);
 		try {
 			int accountId = 0;
 			if (CustomerLogin.id != 0) {
@@ -59,10 +56,10 @@ public class AccountSummary extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 			String query1 = "SELECT number, balance from P1.ACCOUNT where id = '" + accountId + "'"
-					+ "AND status = 'A'";  // Updated
+					+ "AND status = 'A'"; // Updated
 			ResultSet rs = stmt.executeQuery(query1);
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				int number = rs.getInt(1);
 				int balance = rs.getInt(2);
 				Text newRow = new Text("Account Number:" + number + " Balance: $" + balance);
@@ -80,13 +77,13 @@ public class AccountSummary extends Application {
 		gridPane.add(alert, 1, 5);
 
 		button.setOnAction(e -> {
-				CustomerMainMenu newCust = new CustomerMainMenu();
-				try {
-					newCust.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			CustomerMainMenu newCust = new CustomerMainMenu();
+			try {
+				newCust.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 
 		gridPane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"

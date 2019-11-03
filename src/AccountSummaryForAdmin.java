@@ -5,8 +5,6 @@ import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,63 +44,64 @@ public class AccountSummaryForAdmin extends Application {
 		gridPane.add(customerId, 0, 0);
 		gridPane.add(textField1, 1, 0);
 		gridPane.add(accountSummary, 0, 1);
-		gridPane.add(submitButton, 1,  20);
+		gridPane.add(submitButton, 1, 20);
 
 		// Display Account Results
 		// Add i++ at the end.
-		//gridPane.add(something, 1, i);
-		
-int m = 0;
+		// gridPane.add(something, 1, i);
+
+		int m = 0;
 		button.setOnAction(e -> {
-				AdminMainMenu newCust = new AdminMainMenu();
-				try {
-					newCust.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			AdminMainMenu newCust = new AdminMainMenu();
+			try {
+				newCust.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 		submitButton.setOnAction(e -> {
 			while (m != 1) {
-			if (checkIfInDB(Integer.parseInt(textField1.getText())) == false) {
-				gridPane.add(alert, 1, 5);
-				alert.setText("ID NOT IN DATABASE.");
-				alert.setFill(javafx.scene.paint.Color.RED);
-				AccountSummaryForAdmin.i =2;
-			} else {
-			try {
-				gridPane.getChildren().remove(alert);
-				gridPane.getChildren().remove(submitButton);
-				int accountId = Integer.parseInt(textField1.getText());
-				System.out.print("ID is" + accountId);
+				if (checkIfInDB(Integer.parseInt(textField1.getText())) == false) {
+					gridPane.add(alert, 1, 5);
+					alert.setText("ID NOT IN DATABASE.");
+					alert.setFill(javafx.scene.paint.Color.RED);
+					AccountSummaryForAdmin.i = 2;
+				} else {
+					try {
+						gridPane.getChildren().remove(alert);
+						gridPane.getChildren().remove(submitButton);
+						int accountId = Integer.parseInt(textField1.getText());
+						System.out.print("ID is" + accountId);
 
-				// 1. Get a connection to the Database
-				Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
+						// 1. Get a connection to the Database
+						Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1",
+								"kenward");
 
-				// 2. Create a statement
-				Statement stmt = con.createStatement();
-				String query1 = "SELECT number, balance from P1.ACCOUNT where id = '" + accountId + "'"
-						+ "AND status = 'A'";  // Updated
-				ResultSet rs = stmt.executeQuery(query1);
-				
-				while(rs.next()) {
-					int number = rs.getInt(1);
-					int balance = rs.getInt(2);
-					Text newRow = new Text("Account Number:" + number + " Balance: $" + balance);
-					gridPane.add(newRow, 1, i);
-					AccountSummaryForAdmin.i++;
+						// 2. Create a statement
+						Statement stmt = con.createStatement();
+						String query1 = "SELECT number, balance from P1.ACCOUNT where id = '" + accountId + "'"
+								+ "AND status = 'A'"; // Updated
+						ResultSet rs = stmt.executeQuery(query1);
+
+						while (rs.next()) {
+							int number = rs.getInt(1);
+							int balance = rs.getInt(2);
+							Text newRow = new Text("Account Number:" + number + " Balance: $" + balance);
+							gridPane.add(newRow, 1, i);
+							AccountSummaryForAdmin.i++;
+						}
+						con.close();
+						stmt.close(); // Close the statement after we are done with the statement
+
+					} catch (Exception exc) {
+						exc.printStackTrace();
+					}
+
+					gridPane.add(button, 1, AccountSummaryForAdmin.i);
+
 				}
-				con.close();
-				stmt.close(); // Close the statement after we are done with the statement
-
-			} catch (Exception exc) {
-				exc.printStackTrace();
 			}
-
-			gridPane.add(button, 1, AccountSummaryForAdmin.i);
-
-		}
-		}
 		});
 
 		gridPane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
@@ -121,7 +120,7 @@ int m = 0;
 		primaryStage.show();
 
 	}
-	
+
 	private boolean checkIfInDB(int parseInt) {
 
 		try {

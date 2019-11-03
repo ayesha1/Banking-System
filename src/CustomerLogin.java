@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class CustomerLogin extends Application {
 	Button submit;
@@ -119,7 +118,6 @@ public class CustomerLogin extends Application {
 			CustomerLogin.id = parseInt;
 			while (rs.next()) {
 				String name = rs.getString(1);
-				String s = "Your name is " + name;
 				System.out.println("Your name is " + name);
 				return true;
 			}

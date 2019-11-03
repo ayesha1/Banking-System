@@ -1,10 +1,8 @@
-import java.util.*;
-import java.io.*;
 import java.sql.*;
 
-public class Driver { 
+public class Driver {
 	public static String connectionString = "jdbc:db2://127.0.0.1:50000/SAMPLE";
-	public static String dbname =  "db2inst1";
+	public static String dbname = "db2inst1";
 	public static String password = "kenward";
 
 	public static void main(String[] args) {
@@ -33,12 +31,8 @@ public class Driver {
 
 			String sqlCreate = "CREATE TABLE IF NOT EXISTS P1.CUSTOMER"
 					+ "  (ID           integer not null GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),"
-					+ "   name            VARCHAR(15)," 
-					+ "   gender          CHAR," 
-					+ "   age           INTEGER,"
-					+ "   pin           INTEGER," 
-					+ "   type     CHAR," 
-					+ "   status char," + "PRIMARY KEY (ID))";
+					+ "   name            VARCHAR(15)," + "   gender          CHAR," + "   age           INTEGER,"
+					+ "   pin           INTEGER," + "   type     CHAR," + "   status char," + "PRIMARY KEY (ID))";
 
 			stmt.execute(sqlCreate);
 

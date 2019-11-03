@@ -5,8 +5,6 @@ import java.sql.Statement;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -59,8 +57,8 @@ public class Deposit extends Application {
 				alert.setFill(javafx.scene.paint.Color.RED);
 			}
 
-			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") ||
-					!textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
+			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("ID OR DEPOSIT IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			} else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false) {
@@ -105,17 +103,17 @@ public class Deposit extends Application {
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
-			String query1 = "SELECT balance from P1.ACCOUNT where number = '" + parseInt + "'";  // Updated
+			String query1 = "SELECT balance from P1.ACCOUNT where number = '" + parseInt + "'"; // Updated
 			ResultSet rs = stmt.executeQuery(query1);
-			
-			while(rs.next()) {
-				originalAmount= rs.getInt(1);
+
+			while (rs.next()) {
+				originalAmount = rs.getInt(1);
 				break;
 			}
-			
+
 			int sum = amount + originalAmount;
 
-			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where id = '" + parseInt + "'";  // Updated
+			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where id = '" + parseInt + "'"; // Updated
 			stmt.execute(query2);
 
 			con.close();
