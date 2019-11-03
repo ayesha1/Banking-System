@@ -64,7 +64,7 @@ public class CloseAccount extends Application {
 				alert.setFill(javafx.scene.paint.Color.RED);
 			}  else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
 				String s = " " + accountId + " " + getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
-				alert.setText(s);
+				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			}
 			else {

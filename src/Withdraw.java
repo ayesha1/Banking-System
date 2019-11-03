@@ -25,7 +25,7 @@ public class Withdraw extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Text id = new Text("Customer ID");
+		Text id = new Text("Customer Number");
 		Text withdraw = new Text("Withdraw Amount $");
 
 		Text alert = new Text("");
@@ -54,25 +54,31 @@ public class Withdraw extends Application {
 		gridPane.add(alert, 1, 5);
 
 		button.setOnAction(e -> {
+			int accountId = 0;
+			if (CustomerLogin.id != 0) {
+				accountId = CustomerLogin.id;
+			} else {
+				accountId = NewCustomer.id;
+			}
 			if (textField1.getText().trim().equals("") || textField2.getText().trim().equals("")) {
 				alert.setText("TEXTFIELD IS BLANK");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			}
 
-			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") ||
-					!textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
+			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("ID OR DEPOSIT IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			} else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false) {
-				alert.setText("INCORRECT CUSTOMER ID OR PIN");
+			} else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
+				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
-			} else if (depositToAccount(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText())) == false) {
+			} else if (depositToAccount(Integer.parseInt(textField1.getText()),
+					Integer.parseInt(textField2.getText())) == false) {
 				alert.setText("BALANCE IS TOO LOW");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
-			}
-			else {
+			} else {
 				CustomerMainMenu newCust = new CustomerMainMenu();
 				try {
 					newCust.start(primaryStage);
@@ -101,7 +107,7 @@ public class Withdraw extends Application {
 	}
 
 	private boolean depositToAccount(int parseInt, int amount) {
-		Alert a = new Alert(AlertType.NONE); 
+		Alert a = new Alert(AlertType.NONE);
 		try {
 			// 1. Get a connection to the Database
 			int originalAmount = 0;
@@ -109,30 +115,29 @@ public class Withdraw extends Application {
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
-			String query1 = "SELECT balance from P1.ACCOUNT where id = '" + parseInt + "'";  // Updated
+			String query1 = "SELECT balance from P1.ACCOUNT where number = '" + parseInt + "'"; // Updated
 			ResultSet rs = stmt.executeQuery(query1);
-			
-			while(rs.next()) {
-				originalAmount= rs.getInt(1);
+
+			while (rs.next()) {
+				originalAmount = rs.getInt(1);
 				break;
 			}
-			
-			int sum =  originalAmount - amount;
-			
+
+			int sum = originalAmount - amount;
+
 			if (sum < 0) {
-				String s ="CANNOT WITHDRAW. BALANCE IS ONLY " + originalAmount;
-				a.setAlertType(AlertType.CONFIRMATION); 
-                System.out.println(s);
-                // set content text 
-                a.setContentText(s); 
-                
+				String s = "CANNOT WITHDRAW. BALANCE IS ONLY " + originalAmount;
+				a.setAlertType(AlertType.CONFIRMATION);
+				System.out.println(s);
+				// set content text
+				a.setContentText(s);
+
 			} else {
-				String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where id = '" + parseInt + "'";  // Updated
+				String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where number = '" + parseInt + "'"; // Updated
 				stmt.execute(query2);
 				return true;
 			}
 
-			
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
 		} catch (Exception exc) {
@@ -142,8 +147,7 @@ public class Withdraw extends Application {
 
 	}
 
-	private boolean checkIfInDB(int parseInt) {
-
+	private int getIdFromAccountNumber(int number) {
 		try {
 			// 1. Get a connection to the Database
 			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
@@ -151,26 +155,24 @@ public class Withdraw extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 
-			String query2 = "SELECT NAME FROM P1.CUSTOMER AS C WHERE " + "C.id = '" + parseInt + "'"; // The query to
-																										// run
+			String query2 = "select id from p1.account where number = '" + number + "'"; // The query to
+																							// run
 			ResultSet rs = stmt.executeQuery(query2);
-
+			int id = 0;
 			while (rs.next()) {
-				String name = rs.getString(1);
-				System.out.println("Your name is " + name);
-				return true;
+				id = rs.getInt(1);
+				System.out.println("Your id is " + id);
 			}
-
+			System.out.print(id);
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
 
+			return id;
+
 		} catch (Exception exc) {
 			exc.printStackTrace();
-			return false;
 		}
-		return false;
-		// TODO Auto-generated method stub
-
+		return 5;
 	}
 
 }
