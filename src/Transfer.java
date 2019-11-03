@@ -56,12 +56,26 @@ public class Transfer extends Application {
 		gridPane.add(alert, 1, 5);
 
 		button.setOnAction(e -> {
+			int accountId = 0;
+			if (CustomerLogin.id != 0) {
+				accountId = CustomerLogin.id;
+			} else {
+				accountId = NewCustomer.id;
+			}
+			int initialID = getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
+			int transferId = getIdFromAccountNumber(Integer.parseInt(textField2.getText()));
 
 			// First make sure none of the textfields are blank
 			if (textField1.getText().trim().equals("") || textField2.getText().trim().equals("")
 					|| textField3.getText().trim().equals("")) {
 				alert.setText("TEXTFIELD IS BLANK");
 				alert.setFill(javafx.scene.paint.Color.RED);
+			}
+			// Make sure initial Account is your ID
+			else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
+				alert.setText("NOT YOUR ID");
+				alert.setFill(javafx.scene.paint.Color.RED);
+
 			}
 
 			// Make sure they're all numbers
@@ -73,22 +87,6 @@ public class Transfer extends Application {
 			}
 
 			// Make sure each bank is in the database
-			else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false
-					|| checkIfInDB(Integer.parseInt(textField2.getText())) == false) {
-				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
-				alert.setFill(javafx.scene.paint.Color.RED);
-
-			}
-
-			// Check if the account # has the same ID and if it doesn't display error
-			// message
-			else if (sameIDfromAccountNum(Integer.parseInt(textField1.getText()),
-					Integer.parseInt(textField2.getText())) == false) {
-				alert.setText("NOT FROM THE SAME BANK ACCOUNT");
-				alert.setFill(javafx.scene.paint.Color.RED);
-
-			}
-
 			else if (Integer.parseInt(textField1.getText()) == Integer.parseInt(textField2.getText())) {
 				alert.setText("YOU CANNOT TRANSFER TO YOUR OWN ACCOUNT. ");
 				alert.setFill(javafx.scene.paint.Color.RED);
@@ -180,45 +178,38 @@ public class Transfer extends Application {
 		return false;
 	}
 
-	private boolean sameIDfromAccountNum(int sourceAcc, int destAcc) {
+	private int getIdFromAccountNumber(int number) {
 		try {
-			int sourceId = 0;
-			int destId = 0;
 			// 1. Get a connection to the Database
 			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
-			String query1 = "SELECT id from P1.ACCOUNT where number = '" + sourceAcc + "'"; // Updated
-			ResultSet rs = stmt.executeQuery(query1);
 
+			String query2 = "select id from p1.account where number = '" + number + "'"; // The query to
+																							// run
+			ResultSet rs = stmt.executeQuery(query2);
+			int id = 0;
 			while (rs.next()) {
-				sourceId = rs.getInt(1);
-				break;
+				id = rs.getInt(1);
+				System.out.println("Your id is " + id);
 			}
-
-			String query2 = "SELECT id from P1.ACCOUNT where number = '" + destAcc + "'"; // Updated
-			ResultSet rs2 = stmt.executeQuery(query2);
-
-			while (rs2.next()) {
-				destId = rs2.getInt(1);
-				break;
-			}
-			if (sourceId == destId) {
-				return true;
-			}
-
+			System.out.print(id);
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
+
+			return id;
+
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		return false;
+		return 5;
 	}
 
 	private boolean checkIfInDB(int parseInt) {
 
 		try {
+			Boolean f = false;
 			// 1. Get a connection to the Database
 			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
 
@@ -233,19 +224,19 @@ public class Transfer extends Application {
 
 			while (rs.next()) {
 				Integer name = rs.getInt(1);
-				System.out.println("Your name is " + name);
-				return true;
+				System.out.println("Your id is " + name);
+				f = true;
 			}
 
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
+			return f;
+
 
 		} catch (Exception exc) {
 			exc.printStackTrace();
-			return false;
 		}
 		return false;
-		// TODO Auto-generated method stub
 
 	}
 

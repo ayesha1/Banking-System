@@ -73,6 +73,10 @@ public class Withdraw extends Application {
 				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
+			} else if (checkIfInDB(getIdFromAccountNumber(Integer.parseInt(textField1.getText()))) == false) {
+				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
+				alert.setFill(javafx.scene.paint.Color.RED);
+
 			} else if (depositToAccount(Integer.parseInt(textField1.getText()),
 					Integer.parseInt(textField2.getText())) == false) {
 				alert.setText("BALANCE IS TOO LOW");
@@ -103,6 +107,39 @@ public class Withdraw extends Application {
 
 		// Displaying the contents of the stage
 		primaryStage.show();
+
+	}
+
+	private boolean checkIfInDB(int parseInt) {
+
+		try {
+			// 1. Get a connection to the Database
+			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
+
+			// 2. Create a statement
+			Statement stmt = con.createStatement();
+
+			String query2 = "SELECT id FROM P1.ACCOUNT WHERE " + "number = '" + parseInt + "' AND status = 'A'"; // The
+																													// query
+																													// to
+			// run
+			ResultSet rs = stmt.executeQuery(query2);
+
+			while (rs.next()) {
+				Integer name = rs.getInt(1);
+				System.out.println("Your name is " + name);
+				return true;
+			}
+
+			con.close();
+			stmt.close(); // Close the statement after we are done with the statement
+
+		} catch (Exception exc) {
+			exc.printStackTrace();
+			return false;
+		}
+		return false;
+		// TODO Auto-generated method stub
 
 	}
 

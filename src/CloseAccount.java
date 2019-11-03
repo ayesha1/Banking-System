@@ -23,7 +23,7 @@ public class CloseAccount extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		Text id = new Text("Customer Number");
 		Text alert = new Text("");
 
@@ -53,7 +53,7 @@ public class CloseAccount extends Application {
 			} else {
 				accountId = NewCustomer.id;
 			}
-			
+
 			if (textField1.getText().trim().equals("")) {
 				alert.setText("TEXTFIELD IS BLANK");
 				alert.setFill(javafx.scene.paint.Color.RED);
@@ -62,12 +62,15 @@ public class CloseAccount extends Application {
 			else if (!textField1.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("NUMBER IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			}  else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
+			} else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
 				String s = " " + accountId + " " + getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
 				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			}
-			else {
+			} else if (checkIfInDB(getIdFromAccountNumber(Integer.parseInt(textField1.getText()))) == false) {
+				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
+				alert.setFill(javafx.scene.paint.Color.RED);
+
+			} else {
 				// TODO: INSERT INTO DATABASE
 				changeToInactiveFromAccount(Integer.parseInt(textField1.getText()));
 				CustomerMainMenu newCust = new CustomerMainMenu();
@@ -106,7 +109,7 @@ public class CloseAccount extends Application {
 			Statement stmt = con.createStatement();
 
 			String query2 = "select id from p1.account where number = '" + number + "'"; // The query to
-																										// run
+																							// run
 			ResultSet rs = stmt.executeQuery(query2);
 			int id = 0;
 			while (rs.next()) {
@@ -116,10 +119,9 @@ public class CloseAccount extends Application {
 			System.out.print(id);
 			con.close();
 			stmt.close(); // Close the statement after we are done with the statement
-		
+
 			return id;
 
-			
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
@@ -134,7 +136,7 @@ public class CloseAccount extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 
-			String query1 = "UPDATE P1.ACCOUNT SET status = 'I', balance = 0 " + "where number = '" + parseInt + "'";  // Updated
+			String query1 = "UPDATE P1.ACCOUNT SET status = 'I', balance = 0 " + "where number = '" + parseInt + "'"; // Updated
 			stmt.execute(query1);
 
 			con.close();
