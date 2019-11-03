@@ -73,10 +73,6 @@ public class Withdraw extends Application {
 				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
 
-			} else if (checkIfInDB(getIdFromAccountNumber(Integer.parseInt(textField1.getText()))) == false) {
-				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
-				alert.setFill(javafx.scene.paint.Color.RED);
-
 			} else if (depositToAccount(Integer.parseInt(textField1.getText()),
 					Integer.parseInt(textField2.getText())) == false) {
 				alert.setText("BALANCE IS TOO LOW");

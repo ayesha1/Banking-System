@@ -66,10 +66,6 @@ public class CloseAccount extends Application {
 				String s = " " + accountId + " " + getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
 				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			} else if (checkIfInDB(getIdFromAccountNumber(Integer.parseInt(textField1.getText()))) == false) {
-				alert.setText("INCORRECT CUSTOMER ID OR PIN. ACCOUNT MIGHT ALSO BE CLOSED. ");
-				alert.setFill(javafx.scene.paint.Color.RED);
-
 			} else {
 				// TODO: INSERT INTO DATABASE
 				changeToInactiveFromAccount(Integer.parseInt(textField1.getText()));
