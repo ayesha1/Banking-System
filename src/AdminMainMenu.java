@@ -45,6 +45,28 @@ public class AdminMainMenu extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
+		// REPORT A -----------------------
+		reportA.setOnAction(e -> {
+			ReportA acc = new ReportA();
+			try {
+				acc.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		// ACCOUNT SUMMARY -----------------------
+		reportB.setOnAction(e -> {
+			ReportB acc = new ReportB();
+			try {
+				acc.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 
 		// GO BACK -----------------------
 		exit.setOnAction(e -> {

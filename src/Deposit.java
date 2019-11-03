@@ -61,11 +61,7 @@ public class Deposit extends Application {
 					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("ID OR DEPOSIT IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			} else if (checkIfInDB(Integer.parseInt(textField1.getText())) == false) {
-				alert.setText("INCORRECT CUSTOMER ID OR PIN");
-				alert.setFill(javafx.scene.paint.Color.RED);
-
-			} else {
+			}  else {
 				// TODO: INSERT INTO DATABASE
 				depositToAccount(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
 				CustomerMainMenu newCust = new CustomerMainMenu();
@@ -113,7 +109,7 @@ public class Deposit extends Application {
 
 			int sum = amount + originalAmount;
 
-			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where id = '" + parseInt + "'"; // Updated
+			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where number = '" + parseInt + "' AND STATUS = 'A'"; // Updated
 			stmt.execute(query2);
 
 			con.close();
