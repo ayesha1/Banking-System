@@ -3,9 +3,9 @@ import java.io.*;
 import java.sql.*;
 
 public class Driver { 
-	static String connectionString = "jdbc:db2://127.0.0.1:50000/SAMPLE";
-	static String dbname =  "db2inst1";
-	static String password = "kenward";
+	public static String connectionString = "jdbc:db2://127.0.0.1:50000/SAMPLE";
+	public static String dbname =  "db2inst1";
+	public static String password = "kenward";
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -25,7 +25,7 @@ public class Deposit extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Text id = new Text("Customer ID");
+		Text number = new Text("Account Number");
 		Text deposit = new Text("Desposit Amount $");
 
 		Text alert = new Text("");
@@ -45,7 +45,7 @@ public class Deposit extends Application {
 
 		gridPane.setAlignment(Pos.CENTER);
 
-		gridPane.add(id, 0, 0);
+		gridPane.add(number, 0, 0);
 		gridPane.add(textField1, 1, 0);
 		gridPane.add(deposit, 0, 1);
 		gridPane.add(textField2, 1, 1);
@@ -105,7 +105,7 @@ public class Deposit extends Application {
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
-			String query1 = "SELECT balance from P1.ACCOUNT where id = '" + parseInt + "'";  // Updated
+			String query1 = "SELECT balance from P1.ACCOUNT where number = '" + parseInt + "'";  // Updated
 			ResultSet rs = stmt.executeQuery(query1);
 			
 			while(rs.next()) {
