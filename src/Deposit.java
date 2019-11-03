@@ -134,7 +134,7 @@ public class Deposit extends Application {
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
 
-			String query2 = "SELECT NAME FROM P1.CUSTOMER AS C WHERE " + "C.id = '" + parseInt + "'"; // The query to
+			String query2 = "SELECT id FROM P1.account AS C WHERE " + "C.number = '" + parseInt + "'"; // The query to
 																										// run
 			ResultSet rs = stmt.executeQuery(query2);
 
