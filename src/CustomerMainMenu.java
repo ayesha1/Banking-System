@@ -7,14 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 public class CustomerMainMenu extends Application {
-	Button openAccount;
-	Button closeAccount;
-	Button deposit;
-	Button withdraw;
-	Button transfer;
-	Button accountSummary;
-	Button exit;
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

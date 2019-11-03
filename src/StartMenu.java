@@ -79,6 +79,9 @@ public class StartMenu extends Application {
 
 		button2 = new Button();
 		button2.setText("Exit");
+		button2.setOnAction(e -> {
+		   primaryStage.close();
+		});
 
 		
 		GridPane gridPane = new GridPane();
