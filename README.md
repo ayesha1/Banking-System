@@ -7,5 +7,5 @@ This project is implemented using DB2, Java, and JDBC.
 It has three menu Screens, a Welcome Screen, Customer Main Menu Screen and an Admin Main Menu Screen.
 
 <img src="https://imgur.com/Dgp1rFV.jpg" height=400 hspace="20">
-<img src="https://imgur.com/a/Lq8xVFI.jpg" height=400 hspace="20">
-<img src="https://imgur.com/a/TP7peMz.jpg" height=400 hspace="20">
+<img src="https://imgur.com/a/Lq8xVFI" height=400 hspace="20">
+<img src="https://imgur.com/a/TP7peMz" height=400 hspace="20">
