@@ -92,6 +92,17 @@ public class CustomerMainMenu extends Application {
 			}
 		});
 
+		// TRANSFER -----------------------
+		transfer.setOnAction(e -> {
+			Transfer acc = new Transfer();
+			try {
+				acc.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
 		gridPane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
 				+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: pink;"
 				+ "-fx-background-color: white;");
