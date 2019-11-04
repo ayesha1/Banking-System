@@ -6,17 +6,18 @@ This project is implemented using DB2, Java, and JDBC. For the GUI it uses JavaF
 
 It has three menu Screens, a Welcome Screen, Customer Main Menu Screen and an Admin Main Menu Screen.
 
-# Welcome Screen
-
+## Welcome Screen
+<p float="left">
 <img src="https://imgur.com/Dgp1rFV.jpg" width=400 hspace="20">
-<img src="https://imgur.com/6thWAEw.jpg" width=300 >
-<img src="https://imgur.com/4G7iJnS.jpg" width=300 >
+<img src="https://imgur.com/6thWAEw.jpg" width=400 hspace="20" >
+<img src="https://imgur.com/4G7iJnS.jpg" width=400 hspace="20" >
+</p>
 
-# Customer Main Menu Options
+## Customer Main Menu Options
 
 <img src="https://imgur.com/FaPpdcb.jpg" width=400 hspace="20">
 
-# Administrator Main Menu Options
+## Administrator Main Menu Options
 
 <img src="https://imgur.com/zhSxepE.jpg" width=400 hspace="20">
 
