@@ -1,4 +1,4 @@
-# Banking-System
+# Self Servies Banking System
 💰A Banking System using Java JDBC, DB2 and JavaFx
 
 This is a database application which acts like a simple banking system.
