@@ -9,6 +9,8 @@ It has three menu Screens, a Welcome Screen, Customer Main Menu Screen and an Ad
 # Welcome Screen
 
 <img src="https://imgur.com/Dgp1rFV.jpg" width=400 hspace="20">
+<img src="https://imgur.com/6thWAEw.jpg" width=400 hspace="20">
+<img src="https://imgur.com/4G7iJnS.jpg" width=400 hspace="20">
 
 # Customer Main Menu Options
 
