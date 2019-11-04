@@ -61,7 +61,7 @@ public class Deposit extends Application {
 					|| !textField2.getText().trim().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")) {
 				alert.setText("ID OR DEPOSIT IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
-			}  else {
+			} else {
 				// TODO: INSERT INTO DATABASE
 				depositToAccount(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
 				CustomerMainMenu newCust = new CustomerMainMenu();
@@ -109,7 +109,8 @@ public class Deposit extends Application {
 
 			int sum = amount + originalAmount;
 
-			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where number = '" + parseInt + "' AND STATUS = 'A'"; // Updated
+			String query2 = "UPDATE P1.ACCOUNT SET balance = '" + sum + "' " + "where number = '" + parseInt
+					+ "' AND STATUS = 'A'"; // Updated
 			stmt.execute(query2);
 
 			con.close();
@@ -118,37 +119,6 @@ public class Deposit extends Application {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-
-	}
-
-	private boolean checkIfInDB(int parseInt) {
-
-		try {
-			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
-
-			// 2. Create a statement
-			Statement stmt = con.createStatement();
-
-			String query2 = "SELECT id FROM P1.account AS C WHERE " + "C.number = '" + parseInt + "'"; // The query to
-																										// run
-			ResultSet rs = stmt.executeQuery(query2);
-
-			while (rs.next()) {
-				String name = rs.getString(1);
-				System.out.println("Your name is " + name);
-				return true;
-			}
-
-			con.close();
-			stmt.close(); // Close the statement after we are done with the statement
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			return false;
-		}
-		return false;
-		// TODO Auto-generated method stub
 
 	}
 

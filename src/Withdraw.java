@@ -106,39 +106,6 @@ public class Withdraw extends Application {
 
 	}
 
-	private boolean checkIfInDB(int parseInt) {
-
-		try {
-			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
-
-			// 2. Create a statement
-			Statement stmt = con.createStatement();
-
-			String query2 = "SELECT id FROM P1.ACCOUNT WHERE " + "number = '" + parseInt + "' AND status = 'A'"; // The
-																													// query
-																													// to
-			// run
-			ResultSet rs = stmt.executeQuery(query2);
-
-			while (rs.next()) {
-				Integer name = rs.getInt(1);
-				System.out.println("Your name is " + name);
-				return true;
-			}
-
-			con.close();
-			stmt.close(); // Close the statement after we are done with the statement
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			return false;
-		}
-		return false;
-		// TODO Auto-generated method stub
-
-	}
-
 	private boolean depositToAccount(int parseInt, int amount) {
 		Alert a = new Alert(AlertType.NONE);
 		try {

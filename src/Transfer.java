@@ -62,8 +62,6 @@ public class Transfer extends Application {
 			} else {
 				accountId = NewCustomer.id;
 			}
-			int initialID = getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
-			int transferId = getIdFromAccountNumber(Integer.parseInt(textField2.getText()));
 
 			// First make sure none of the textfields are blank
 			if (textField1.getText().trim().equals("") || textField2.getText().trim().equals("")
@@ -204,40 +202,6 @@ public class Transfer extends Application {
 			exc.printStackTrace();
 		}
 		return 5;
-	}
-
-	private boolean checkIfInDB(int parseInt) {
-
-		try {
-			Boolean f = false;
-			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
-
-			// 2. Create a statement
-			Statement stmt = con.createStatement();
-
-			String query2 = "SELECT id FROM P1.ACCOUNT WHERE " + "number = '" + parseInt + "' AND status = 'A'"; // The
-																													// query
-																													// to
-			// run
-			ResultSet rs = stmt.executeQuery(query2);
-
-			while (rs.next()) {
-				Integer name = rs.getInt(1);
-				System.out.println("Your id is " + name);
-				f = true;
-			}
-
-			con.close();
-			stmt.close(); // Close the statement after we are done with the statement
-			return f;
-
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		}
-		return false;
-
 	}
 
 }

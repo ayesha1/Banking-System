@@ -63,7 +63,6 @@ public class CloseAccount extends Application {
 				alert.setText("NUMBER IS NOT A NUMBER");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			} else if (getIdFromAccountNumber(Integer.parseInt(textField1.getText())) != accountId) {
-				String s = " " + accountId + " " + getIdFromAccountNumber(Integer.parseInt(textField1.getText()));
 				alert.setText("NOT YOUR ID");
 				alert.setFill(javafx.scene.paint.Color.RED);
 			} else {
@@ -141,37 +140,6 @@ public class CloseAccount extends Application {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-
-	}
-
-	private boolean checkIfInDB(int parseInt) {
-
-		try {
-			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
-
-			// 2. Create a statement
-			Statement stmt = con.createStatement();
-
-			String query2 = "SELECT id FROM P1.CUSTOMER AS C WHERE " + "C.number = '" + parseInt + "'"; // The query to
-																										// run
-			ResultSet rs = stmt.executeQuery(query2);
-
-			while (rs.next()) {
-				int num = rs.getInt(1);
-				System.out.println("Your num is " + num);
-				return true;
-			}
-
-			con.close();
-			stmt.close(); // Close the statement after we are done with the statement
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			return false;
-		}
-		return false;
-		// TODO Auto-generated method stub
 
 	}
 
