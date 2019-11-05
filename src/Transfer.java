@@ -163,7 +163,7 @@ public class Transfer extends Application {
 			}
 			int newSum = originalBalanceOfDestinationAccount + amount;
 			String query4 = "UPDATE P1.ACCOUNT set balance = '" + newSum + "' where number = '" + destinationAccNum
-					+ "'";
+					+ "' AND status = 'A'";
 			stmt.execute(query4);
 
 			con.close();
