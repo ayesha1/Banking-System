@@ -87,7 +87,6 @@ public class ReportB extends Application {
 			try {
 				acc.start(primaryStage);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});

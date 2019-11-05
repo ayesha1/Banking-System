@@ -84,7 +84,6 @@ public class ReportA extends Application {
 			try {
 				newCust.start(primaryStage);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
