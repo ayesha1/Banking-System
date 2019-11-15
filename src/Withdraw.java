@@ -111,7 +111,7 @@ public class Withdraw extends Application {
 		try {
 			// 1. Get a connection to the Database
 			int originalAmount = 0;
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
+			Connection con = DriverManager.getConnection(Driver.connectionString, Driver.dbname, Driver.password);
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
@@ -150,7 +150,7 @@ public class Withdraw extends Application {
 	private int getIdFromAccountNumber(int number) {
 		try {
 			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
+			Connection con = DriverManager.getConnection(Driver.connectionString, Driver.dbname, Driver.password);
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();

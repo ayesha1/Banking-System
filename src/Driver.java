@@ -24,9 +24,7 @@ public class Driver {
 				String lastname = rs.getString(2);
 				int edlevel = rs.getInt(3);
 				double salary = rs.getDouble(4);
-				System.out.println(firstname + ",\t" + lastname + "," + edlevel + ",\t\t" + salary); // Print out each
-																										// row's values
-																										// to the screen
+				System.out.println(firstname + ",\t" + lastname + "," + edlevel + ",\t\t" + salary);
 			}
 
 			String sqlCreate = "CREATE TABLE IF NOT EXISTS P1.CUSTOMER"
