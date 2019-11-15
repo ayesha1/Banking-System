@@ -9,7 +9,7 @@ public class Driver {
 		// TODO Auto-generated method stub
 		try {
 			// 1. Get a connection to the Database
-			Connection con = DriverManager.getConnection("jdbc:db2://127.0.0.1:50000/SAMPLE", "db2inst1", "kenward");
+			Connection con = DriverManager.getConnection(connectionString, dbname, password);
 
 			// 2. Create a statement
 			Statement stmt = con.createStatement();
