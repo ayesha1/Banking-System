@@ -13,7 +13,7 @@ Then go to *StartMenu.java* and run through the application.
 This is a database application which acts like a simple banking system.
 This project is implemented using DB2, Java, and JDBC. For the GUI it uses JavaFx
 
-The implementation is also recorded on <a href="https://youtu.be/P4ePMCL0mXo">YouTube</a>
+The walkthrough is also recorded on <a href="https://youtu.be/P4ePMCL0mXo">YouTube</a>
 
 You have to have JavaFX in the library and running on the latest eclipse ( version 8).
 
