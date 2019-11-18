@@ -15,7 +15,7 @@ This project is implemented using DB2, Java, and JDBC. For the GUI it uses JavaF
 
 The implementation is also recorded on https://youtu.be/P4ePMCL0mXo
 
-You have to have JavaFX in the library and running on the latest eclipse ( version 8). Please email me if you have any trouble downloading! I am more than happy to help. ayeshakay786@gmail.com
+You have to have JavaFX in the library and running on the latest eclipse ( version 8).
 
 
 It has three menu Screens, a Welcome Screen, Customer Main Menu Screen and an Admin Main Menu Screen.
